@@ -23,7 +23,7 @@ class User {
     }
 
     public void setName(String name) throws Exception {
-        if (name.isEmpty()) {
+        if (name.isEmpty() || name.equals("")) {
             throw new Exception("Имя не может быть пустым!");
         } else {
             this.name = name;
@@ -133,6 +133,7 @@ class User {
             return o1.getAge() - o2.getAge();
         }
     };
+
     public static Comparator<User> RegDateComparator = new Comparator<User>() {
         public int compare(User o1, User o2) {
             return o1.getRegDate().compareTo(o2.getRegDate());
