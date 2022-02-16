@@ -23,37 +23,14 @@ public class Console {
         allUsers[9] = new User("Александр", 51, "00007", "alex@mail.ru", "AlexSuper", sdf.parse("09-07-2021"));
 
         System.out.println("Вам надо зарегестрироваться!");
-
-//        boolean checkName = true;
-//        while (checkName) {
-//            try {
-//                System.out.println("Введите ваше имя");
-//                allUsers[0].setName(scanner.next());
-//                scanner.nextLine();
-//                checkName = false;
-//            } catch (Exception e) {
-//                System.err.println(e.getMessage());
-//            }
-//        }
-
-        try{
-            allUsers[0].setName(parseString("Введите ваше имя"));
-        } catch (Exception e){
-            System.err.println(e.getMessage());
+        while (true) {
+            try {
+                allUsers[0].setName(parseString("Введите ваше имя"));
+                break;
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
-
-
-//        boolean checkAge = true;
-//        while (checkAge) {
-//            try {
-//                System.out.println("Введите ваш возраст");
-//                allUsers[0].setAge(scanner.nextInt());
-//                scanner.nextLine();
-//                checkAge = false;
-//            } catch (Exception e) {
-//                System.err.println(e.getMessage());
-//            }
-//        }
 
         while (true){
             try{
@@ -64,7 +41,139 @@ public class Console {
             }
         }
 
-        boolean checkEmail = true;
+        while (true){
+            try{
+                allUsers[0].setEmail(parseString("Введите ваш Email"));
+                break;
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+        }
+
+        while (true){
+            try{
+                allUsers[0].setPassword(parseString("Введите ваш пароль"));
+                break;
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+        }
+
+        while (true) {
+            try{
+                allUsers[0].setId(parseString("Введите ваш ID"));
+                break;
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+        }
+
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
+        while (true) {
+            try{
+                System.out.println("Введите дату регистрации в формате дд-мм-гггг");
+                allUsers[0].setRegDate(formater.parse(scanner.nextLine()));
+                break;
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+        }
+
+        System.out.println(allUsers[0].getName() + ", Вы зарегистрированы! ");
+        System.out.println("Всего в базе 10 пользователей. ");
+
+        System.out.println("Что вы хотите сделать со списком пользователей?");
+        System.out.println("1. Сортировка по возрасту");
+        System.out.println("2. Сортировка по дате регистрации");
+        System.out.println("3. Поиск по имени");
+        System.out.println("4. Поиск по Email");
+
+        int i = scanner.nextInt();
+        switch (i) {
+            case (1):
+                Arrays.sort(allUsers, User.AgeComparator);
+                System.out.println("Сортировка по возрасту " + Arrays.toString(allUsers));
+                break;
+            case (2):
+                Arrays.sort(allUsers, User.RegDateComparator);
+                System.out.println("Сортировка по дате регистрации: " + Arrays.toString(allUsers));
+                break;
+            case(3):
+                System.out.println("Введите имя пользователя, которого хотите найти");
+                boolean foundCheck = false;
+                while (!foundCheck) {
+                    scanner.nextLine();
+                    String searchName = scanner.next();
+                    for (User user : allUsers) {
+                        if (user.getName().equals(searchName)) {
+                            foundCheck = true;
+                            System.out.println("Вы нашли пользователя " + user);
+                            break;
+                        }
+                    }
+                    if (!foundCheck) {
+                        System.out.println("Пользователь с таким именем не найден. Попробуйте еще раз.");
+                    }
+                }
+                break;
+            case (4):
+                System.out.println("Введите Email пользователя, которого хотите найти");
+                boolean foundCheck1 = false;
+                while (!foundCheck1) {
+                    scanner.nextLine();
+                    String searchEmail = scanner.next();
+                    for (User user : allUsers) {
+                        if (user.getEmail().equals(searchEmail)) {
+                            foundCheck1 = true;
+                            System.out.println("Вы нашли пользователя " + user);
+                            break;
+                        }
+                    }
+                    if (!foundCheck1) {
+                        System.out.println("Пользователь с таким именем не найден. Попробуйте еще раз.");
+                    }
+                }
+                break;
+        }
+    }
+
+    private static String parseString(String inputMessage) {
+        boolean incorrectInputFlag = true;
+        String input = "Данные не считаны.";
+        while (incorrectInputFlag) {
+            try {
+                System.out.println(inputMessage);
+                input = scanner.next();
+                scanner.nextLine();
+                incorrectInputFlag = false;
+                return input;
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
+
+    private static Integer parseInt(String inputMessage) {
+        boolean incorrectInputFlag = true;
+        int input = 0;
+        while (incorrectInputFlag) {
+            try {
+                System.out.println(inputMessage);
+                input = scanner.nextInt();
+                scanner.nextLine();
+                incorrectInputFlag = false;
+            } catch (Exception e) {
+                System.err.println("Введено не число!");
+                scanner.nextLine();
+            }
+        }
+        return input;
+    }
+}
+
+        /*boolean checkEmail = true;
         while (checkEmail) {
             try {
                 System.out.println("Введите ваш Email");
@@ -110,19 +219,9 @@ public class Console {
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
-        }
+        }*/
 
-        System.out.println(allUsers[0].getName() + ", Вы зарегистрированы! ");
-        System.out.println("Всего в базе 10 пользователей. ");
-
-        System.out.println("Что вы хотите сделать со списком пользователей?");
-        System.out.println("1. Сортировка по возрасту");
-        System.out.println("2. Сортировка по дате регистрации");
-        System.out.println("3. Поиск по имени");
-        System.out.println("4. Поиск по Email");
-
-        int i = scanner.nextInt();
-        if (i == 1) {
+/*if (i == 1) {
             Arrays.sort(allUsers, User.AgeComparator);
             System.out.println("Сортировка по возрасту " + Arrays.toString(allUsers));
         } else if (i == 2) {
@@ -162,42 +261,4 @@ public class Console {
                     System.out.println("Пользователь с таким именем не найден. Попробуйте еще раз.");
                 }
             }
-        }
-    }
-
-    private static String parseString(String inputMessage) {
-        boolean incorrectInputFlag = true;
-        String input = "Данные не считаны.";
-        while (incorrectInputFlag) {
-            try {
-                System.out.println(inputMessage);
-                input = scanner.next();
-                scanner.nextLine();
-                incorrectInputFlag = false;
-                return input;
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-                scanner.nextLine();
-            }
-        }
-        return input;
-    }
-
-    private static Integer parseInt(String inputMessage) {
-        boolean incorrectInputFlag = true;
-        int input = 0;
-        while (incorrectInputFlag) {
-            try {
-                System.out.println(inputMessage);
-                input = scanner.nextInt();
-                scanner.nextLine();
-                incorrectInputFlag = false;
-            } catch (Exception e) {
-                System.err.println("Введено не число!");
-                scanner.nextLine();
-            }
-        }
-        return input;
-    }
-}
-
+        }*/

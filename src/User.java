@@ -37,11 +37,11 @@ class User {
     public void setAge(int age) throws Exception {
         if (age >= 100) {
             throw new Exception("Вы уже должно быть мертвы! Вам больше 100 лет!");
-        } else if (age <= 0) {
-            throw new Exception("Возраст введен некорректно! Возраст не может быть меньше нуля.");
-        } else {
-            this.age = age;
         }
+        if (age <= 0) {
+            throw new Exception("Возраст введен некорректно! Возраст не может быть меньше нуля.");
+        }
+            this.age = age;
     }
 
     public int getAge() {
@@ -78,6 +78,11 @@ class User {
     }
 
     public void setPassword(String password) throws Exception {
+        if (password.length() < 8) {
+            throw new Exception("Пароль должен быть длиннее 8 символов.");
+        } else {
+            this.password = password;
+        }
         boolean result = true;
         char[] array = password.toCharArray();
         for (char x : array) {
@@ -88,11 +93,6 @@ class User {
             } else {
                 throw new Exception("Пароль должен содержать заглавную букву.");
             }
-        }
-        if (password.length() < 8) {
-            throw new Exception("Пароль должен быть длиннее 8 символов.");
-        } else {
-            this.password = password;
         }
     }
 
