@@ -105,14 +105,8 @@ class User {
         regDate.compareTo(dateNow); //сравнивает дату regDate с dateNow.
         if (regDate.compareTo(dateNow) > 0) {
             throw new Exception("Дата регистрации не может быть больше текущего числа.");
-        } else if (regDate.compareTo(dateNow) == 0) {
-            this.regDate = regDate;
-        } else {
-            this.regDate = regDate;
         }
-        /*Возвращает 0, если значения равны. Возвращает отрицательное значение,
-        если объект вызова является более ранним, чем дата.
-        Возвращает положительное значение, если объект вызова позже даты.*/
+            this.regDate = regDate;
     }
 
     public Date getRegDate() {
